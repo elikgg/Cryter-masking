@@ -1,0 +1,37 @@
+Crypter Client sadə bir RC4 şifrələmə proqramıdır. Bu alət, faylları şifrələmək və stub ilə birləşdirmək üçün hazırlanmışdır. Layihə yalnız təhsil və araşdırma məqsədləri üçün nəzərdə tutulmuşdur.
+
+📋 Xüsusiyyətlər
+RC4 Şifrələmə Alqoritmi: Verilənləri təhlükəsiz şəkildə şifrələyir.
+Fayl və Stub Seçimi: İstənilən .exe faylını seçərək işləməyə imkan verir.
+Şifrə Generasiyası: Avtomatik olaraq təsadüfi şifrələr yaradır.
+Sadə İstifadəçi İnterfeysi: Tkinter ilə hazırlanmış istifadəçi dostu interfeys.
+
+🚀 İstifadə 
+Proqramı işə salın:
+Python faylını işlədərək interfeysi açın:
+
+python crypter_client.py
+
+Fayl və Stub seçin:
+Şifrələmək istədiyiniz .exe faylını və istifadə edəcəyiniz stub faylını seçin.
+
+Şifrə yaradın:
+"Generate Key" düyməsini basaraq şifrə yaradın.
+
+Şifrələnmiş faylı qeyd edin:
+"Encrypt" düyməsinə basaraq şifrələnmiş faylı saxlayın.
+
+⚠️ Xəbərdarlıq
+Etik İstifadə: Bu proqram yalnız təhsil və təcrübə məqsədi üçün nəzərdə tutulmuşdur. Zərərli fəaliyyətlər üçün istifadəsi qadağandır.
+Məsuliyyətdən İmtina: Proqramın istifadəsindən doğan hər hansı zərərdən müəllif məsuliyyət daşımır.
+
+🛠️ Texnologiyalar
+Proqramlaşdırma Dili: Python
+
+Kitabxanalar:
+tkinter (İstifadəçi interfeysi)
+base64 (Şifrələmə)
+random, string (Şifrə generasiyası)
+
+📜 Lisenziya
+Bu layihə MIT Lisenziyası ilə təmin olunur.
