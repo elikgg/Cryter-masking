@@ -1,0 +1,42 @@
+📋 Xüsusiyyətlər
+RC4 Şifrələmə Alqoritmi: Faylları təhlükəsiz şəkildə şifrələyir.
+Stub Faylı İlə Birləşdirmə: Şifrələnmiş məlumatları stub faylına əlavə edir.
+Təsadüfi Şifrə Generasiyası: Avtomatik olaraq təsadüfi şifrələr yaradır.
+Sadə İstifadəçi İnterfeysi: Fayl seçimi və şifrə generasiyası üçün Windows Forms GUI-dən istifadə edir.
+
+🚀 İstifadə
+Tətbiqi işə salmaq
+Proqramı yükləyin və qurun:
+Tətbiqin .exe faylını yükləyin və ya mənbə kodunu kopyalayaraq Visual Studio-da açın.
+
+Tətbiqi işə salın:
+Layihəni Visual Studio-da qurun və ya artıq mövcud olan icra faylını işlədin.
+
+Şifrələmə Prosesi
+Fayl seçin:
+"Select EXE" düyməsinə klikləyərək şifrələnəcək faylı seçin.
+
+Stub faylı seçin:
+Stub faylı üçün yol təyin edin.
+
+Şifrə yaradın:
+"Generate Key" düyməsini basaraq avtomatik olaraq təsadüfi şifrə yaradın.
+
+Şifrələnmiş faylı qeyd edin:
+"Encrypt" düyməsini basaraq faylı şifrələyin və nəticəni qeyd edin.
+
+Nəticə
+Şifrələnmiş fayl seçilən stub faylı ilə birləşdirilir və istədiyiniz yerə qeyd olunur.
+
+🛠️ Texnologiyalar
+Proqramlaşdırma Dili: C#
+Platforma: .NET Framework (Windows Forms)
+Əsas Alqoritm: RC4 Şifrələmə
+
+⚠️ Xəbərdarlıq
+Etik İstifadə: Bu layihə yalnız təhsil və araşdırma məqsədi üçün hazırlanmışdır. Zərərli fəaliyyətlər üçün istifadəsi qəti qadağandır.
+Məsuliyyət İmtinası: Proqramın istifadəsindən doğan hər hansı zərərdən müəllif məsuliyyət daşımır.
+
+📜 Lisenziya
+Bu layihə MIT Lisenziyası ilə təmin olunur.
+
